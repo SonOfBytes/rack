@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/convox/rack/api/cmd/build/source"
+	"github.com/MiguelMoll/rack/api/cmd/build/source"
 	"github.com/convox/rack/api/structs"
 	"github.com/convox/rack/manifest"
 	"github.com/convox/rack/provider"
@@ -73,6 +73,10 @@ func main() {
 
 	if v := os.Getenv("BUILD_ID"); v != "" {
 		flagId = v
+	}
+
+	if v := os.Getenv("BUILD_METHOD"); v != "" {
+		flagMethod = v
 	}
 
 	if v := os.Getenv("BUILD_PUSH"); v != "" {
@@ -137,6 +141,8 @@ func fetch() (string, error) {
 		s = &source.SourceTgz{flagUrl}
 	case "zip":
 		s = &source.SourceZip{flagUrl}
+	case "local":
+		s = &source.SourceLocal{}
 	default:
 		return "", fmt.Errorf("unknown method: %s", flagMethod)
 	}
