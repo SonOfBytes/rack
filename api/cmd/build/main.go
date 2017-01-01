@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/MiguelMoll/rack/api/cmd/build/source"
+	"github.com/convox/rack/api/cmd/build/source"
 	"github.com/convox/rack/api/structs"
 	"github.com/convox/rack/manifest"
 	"github.com/convox/rack/provider"

@@ -27,6 +27,13 @@
       "Fn::And": [ { "Condition": "Private" }, { "Condition": "ThirdAvailabilityZone" } ]
     },
     "PrivateApi": { "Fn::Equals": [ { "Ref": "PrivateApi" }, "Yes" ] },
+    "RegionHasCodeBuild": {
+        "Fn::Or": [
+          { "Fn::Equals": [ { "Ref": "AWS::Region" }, "us-east-1" ]},
+          { "Fn::Equals": [ { "Ref": "AWS::Region" }, "us-west-2" ]},
+          { "Fn::Equals": [ { "Ref": "AWS::Region" }, "eu-west-1" ]}
+        ]
+    },
     "RegionHasEFS": {
         "Fn::Or": [
           { "Fn::Equals": [ { "Ref": "AWS::Region" }, "us-east-1" ]},
@@ -1747,6 +1754,7 @@
               "CLIENT_ID": { "Ref": "ClientId" },
               "CUSTOM_TOPIC": { "Fn::GetAtt": [ "CustomTopic", "Arn" ] },
               "CLUSTER": { "Ref": "Cluster" },
+              "BUILD_SERVICE": { "Fn::If": [ "RegionHasCodeBuild", "yes", "no" ] },
               "DOCKER_IMAGE_API": { "Fn::Join": [ ":", [ "convox/api", { "Ref": "Version" } ] ] },
               "DYNAMO_BUILDS": { "Ref": "DynamoBuilds" },
               "DYNAMO_RELEASES": { "Ref": "DynamoReleases" },

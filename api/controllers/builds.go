@@ -75,7 +75,6 @@ func BuildCreate(rw http.ResponseWriter, r *http.Request) *httperr.Error {
 		return RenderJson(rw, build)
 	}
 
-	// TODO deprecate
 	if repo := r.FormValue("repo"); repo != "" {
 		return httperr.Server(fmt.Errorf("repo param has been deprecated"))
 	}
